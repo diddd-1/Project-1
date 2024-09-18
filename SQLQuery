@@ -1,0 +1,73 @@
+
+/*
+	Query to analyze monthly sales trends
+*/
+
+SELECT 
+    YEAR(OrderDate) AS Year, 
+    MONTH(OrderDate) AS Month, 
+    SUM(TotalDue) AS TotalSales
+FROM 
+    Sales.SalesOrderHeader
+GROUP BY 
+    YEAR(OrderDate), MONTH(OrderDate)
+ORDER BY 
+    Year, Month;
+
+
+/*
+	Query to find the top 10 selling products by revenue
+*/
+
+SELECT 
+    TOP 10 P.Name AS ProductName, 
+    SUM(SOD.LineTotal) AS TotalRevenue
+FROM 
+    Sales.SalesOrderDetail SOD
+JOIN 
+    Production.Product P ON SOD.ProductID = P.ProductID
+GROUP BY 
+    P.Name
+ORDER BY 
+    TotalRevenue DESC;
+
+/*
+  Query to analyze sales by customer region
+*/
+
+SELECT 
+    ST.Name AS Territory, 
+    SUM(SOH.TotalDue) AS TotalSales,
+    COUNT(DISTINCT C.CustomerID) AS NumberOfCustomers
+FROM 
+    Sales.SalesOrderHeader SOH
+JOIN 
+    Sales.Customer C ON SOH.CustomerID = C.CustomerID
+JOIN 
+    Sales.SalesTerritory ST ON SOH.TerritoryID = ST.TerritoryID
+GROUP BY 
+    ST.Name
+ORDER BY 
+    TotalSales DESC;
+
+
+/*
+	Query to analyze sales by product category
+*/
+
+
+SELECT 
+    PC.Name AS ProductCategory, 
+    SUM(SOD.LineTotal) AS TotalRevenue
+FROM 
+    Sales.SalesOrderDetail SOD
+JOIN 
+    Production.Product P ON SOD.ProductID = P.ProductID
+JOIN 
+    Production.ProductSubcategory PSC ON P.ProductSubcategoryID = PSC.ProductSubcategoryID
+JOIN 
+    Production.ProductCategory PC ON PSC.ProductCategoryID = PC.ProductCategoryID
+GROUP BY 
+    PC.Name
+ORDER BY 
+    TotalRevenue DESC;
