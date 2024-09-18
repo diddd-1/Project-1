@@ -1,6 +1,6 @@
 
 /*
-	Query to analyze monthly sales trends
+Query to analyze monthly sales trends. The results are grouped by year and month to aggregate the sales.
 */
 
 SELECT 
@@ -14,9 +14,8 @@ GROUP BY
 ORDER BY 
     Year, Month;
 
-
 /*
-	Query to find the top 10 selling products by revenue
+Query to find the top 10 selling products by revenue.
 */
 
 SELECT 
@@ -32,7 +31,7 @@ ORDER BY
     TotalRevenue DESC;
 
 /*
-  Query to analyze sales by customer region
+  Query to analyze sales by customer region. The query orders the results by total sales, with the highest sales territories first
 */
 
 SELECT 
@@ -52,7 +51,7 @@ ORDER BY
 
 
 /*
-	Query to analyze sales by product category
+Query to analyze sales by product category. The results are ordered by total revenue, with the highest-earning categories shown first.
 */
 
 
